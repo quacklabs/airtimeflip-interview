@@ -14,6 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+    // return $request->user();
+// });
+
+Route::group([
+    'prefix' => 'bill-pay'
+], function () {
+    // Basic bill pay without authentication. 
+    Route::post('pay-cable', 'PaymentsController@payCableTv');
+    Route::post('pay-electricity', 'PaymentsController@payElectricity');
+    
+    // If user needs to the authenticated, then we can change to use these routes
+    // Route::group([
+    //   'middleware' => 'bill-pay:api'
+    // ], function() {
+            // Route::post('pay-dstv', 'PaymentController@payCableTv');
+    // });
 });
