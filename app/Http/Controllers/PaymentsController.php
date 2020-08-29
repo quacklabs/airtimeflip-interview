@@ -76,7 +76,6 @@ class PaymentsController extends Controller
             if($status == null || $status == "") {
                 return response()->json(["status" => "failed","error" => "Unable to process transaction"], 500);
             } else {
-                // unset($params["agentId"]); // not doing this causes an error
                 $params["agentReference"] = $status;
                 $baxiHandler = new BaxiGateway;
                 $baxiRequest = $baxiHandler->payElectricity($params);
