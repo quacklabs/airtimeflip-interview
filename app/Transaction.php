@@ -11,11 +11,19 @@ class Transaction extends Model
 
     protected $fillable = [
         "trans_id", "total_amount",
-        "user_id", 
+        "product_code", "service_type",
+        "user_id", "status"
     ];
 
+    protected static function boot() {
+        parent::boot();
+
+        static::creating(function ($query) {
+            $query->status = "pending";
+        });
+    }
+
     public function customer() {
-        // return $this->public function user()
         return $this->belongsTo('App\User');
     }
 }
